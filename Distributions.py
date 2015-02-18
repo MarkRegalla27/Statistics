@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np 
 import scipy.stats as stats
 
-'''testlist = [1, 4, 5, 6, 9, 9, 9]
+testlist = [1, 4, 5, 6, 9, 9, 9]
 
 c = collections.Counter(testlist)
 
@@ -20,7 +20,7 @@ print count_sum
 x = [1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 4, 4, 4, 4, 5, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 9, 9]
 #plt.boxplot(x)					#plots a boxplot
 plt.hist(x, histtype='bar')		#plots a histogram
-plt.show() '''
+plt.show() 
 
 plt.figure()
 test_data = np.random.normal(size=1000)   
