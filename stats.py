@@ -25,17 +25,20 @@ df['Alcohol'] = df['Alcohol'].astype(float)
 df['Tobacco'] = df['Tobacco'].astype(float)
 
 #Descriptive statistics of the Alcohol dataset
+print ""
 print "The mean of the Alcohol dataset is " + str(df['Alcohol'].mean())
 print "The median of the Alcohol dataset is " + str(df['Alcohol'].median()) 
-print "The mode of the Alcohol dataset is " + str(stats.mode(df['Alcohol']))
+print "The mode of the Alcohol dataset is " + str(stats.mode(df.Alcohol)[0][0])
 print "The range of the Alcohol dataset is " + str(max(df['Alcohol']) - min(df['Alcohol']))
 print "The standard deviation of the Alcohol dataset is " + str(df['Alcohol'].std()) 
 print "The variance of the Alcohol dataset is " + str(df['Alcohol'].var()) 
+print ""
 
 #Descriptive statistics of the Tobacco dataset
 print "The mean of the Tobacco dataset is " + str(df['Tobacco'].mean()) 
 print "The median of the Tobacco dataset is " + str(df['Tobacco'].median())
-print "The mode of the Tobacco dataset is " + str(stats.mode(df['Tobacco']))
+print "The mode of the Tobacco dataset is " + str(stats.mode(df.Tobacco)[0][0])
 print "The range of the Tobacco dataset is " + str(max(df['Tobacco']) - min(df['Tobacco']))
 print "The standard deviation of the Tobacco dataset is " + str(df['Tobacco'].std()) 
 print "The variance of the Tobacco dataset is " + str(df['Tobacco'].var())
+print ""
