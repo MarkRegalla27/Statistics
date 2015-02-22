@@ -35,6 +35,7 @@ for j,w in b.iteritems():
 print count_sum2
 plt.boxplot(x)					#plots the boxplot for x
 plt.show()
+#plt.save()
 plt.hist(x, histtype='bar')		#plots the histogram for x
 plt.show() 
 plt.figure()
