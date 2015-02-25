@@ -10,7 +10,7 @@ loansData.dropna(inplace=True)
 loansData.boxplot(column='Amount.Requested')
 plt.show()
 #Generate the histogram
-loansData.hist(column='Amount.Requested')
+loansData.hist(column=['Amount.Requested','Amount.Funded.By.Investors'])
 plt.show()
 #Generate the QQ plot
 plt.figure()

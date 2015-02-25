@@ -13,14 +13,20 @@ count_sum = sum(c.values())
 for k,v in c.iteritems():
   print "The frequency of number " + str(k) + " is " + str(float(v) / count_sum) + " in testlist."
   
-print count_sum 
+#print count_sum 
 plt.boxplot(testlist)					#plots the boxplot for testlist
+plt.title("Boxplot for Testlist")
+plt.savefig("Testlist_Boxplot")
 plt.show()
 plt.hist(testlist, histtype='bar')		#plots the histogram for testlist
+plt.title("Histogram for Testlist")
+plt.savefig("Testlist_Histogram")
 plt.show() 
 plt.figure()  
 graph1 = stats.probplot(testlist, dist="norm", plot=plt)
-plt.show() 								#this will generate the QQ graph for testlist
+plt.title("QQ Plot for Testlist")
+plt.savefig("Testlist_QQ")		#this will generate the QQ graph for testlist
+plt.show() 								
 
 
 #plots for x
@@ -32,12 +38,16 @@ count_sum2 = sum(b.values())
 for j,w in b.iteritems():
   print "The frequency of number " + str(j) + " is " + str(float(w) / count_sum2) + " in x."
 
-print count_sum2
 plt.boxplot(x)					#plots the boxplot for x
+plt.title("Boxplot for x")
+plt.savefig("x_boxplot")
 plt.show()
-#plt.save()
 plt.hist(x, histtype='bar')		#plots the histogram for x
-plt.show() 
+plt.title("Histogram for x")
+plt.savefig("x_histogram")
+plt.show()
 plt.figure()
 graph = stats.probplot(x, dist="norm", plot=plt)
-plt.show() 						#this will generate the QQ graph for x
+plt.title("QQ Plot for x")
+plt.savefig("x_QQ")				#this will generate the QQ graph for x				
+plt.show()
