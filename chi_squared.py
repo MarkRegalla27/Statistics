@@ -16,6 +16,7 @@ plt.bar(freq.keys(), freq.values(), width=1)
 loansData.hist(column='Open.CREDIT.Lines')
 
 chi, p = stats.chisquare(freq.values())
-print chi
-print p
+print "The chi squared value for the Open.CREDIT.Lines dataset is " + str(chi) + "."
+#s = "The p-value is %1.5f" % p + "."
+print("The p-value is %1.5f" % p + ".")
 #plt.show()
