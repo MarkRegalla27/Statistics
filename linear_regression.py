@@ -1,4 +1,6 @@
 import pandas as pd
+import matplotlib.pyplot as plt
+from pandas.tools.plotting import scatter_matrix
 
 loansData = pd.read_csv('https://spark-public.s3.amazonaws.com/dataanalysis/loansData.csv')
 
@@ -8,13 +10,32 @@ percent = loansData['Interest.Rate'].map(lambda percent: round(float(percent.rst
 #print loansData['Loan.Length'][0:5]
 
 term = loansData['Loan.Length'].map(lambda term: term.rstrip(' months'))
-#print term[0:5]
+print term[0:5]
 
 cleanFICORange = loansData['FICO.Range'].map(lambda cleanFICORange: cleanFICORange.split('-'))
 cleanFICORange = cleanFICORange.map(lambda cleanFICORange: [int(n) for n in cleanFICORange])
-print cleanFICORange[0:5]
-print cleanFICORange[0:5].values[0][1]
+#print cleanFICORange.values[1][0]
+#pd.series(bin.split('-')[0:2])
 
+#next line alone should assign first value of FICO.Range to FICO.Min as integer
+loansData['FICO.Min'] = loansData.apply(lambda x: ['FICO.Range'].split('-')[0:1].astype('int'), axis=1)
+#print cleanFICORange[0:5]
+print loansData['FICO.Min'][0:5]
+#loansData.hist(column='FICO.Min')
+#plt.show()
+#i = 0
+#for i in cleanFICORange:
+#	loansData['FICO.Score'] = cleanFICORange.values[i][0]
 
+#loansData['FICO.Score'] = cleanFICORange
+#print loansData['FICO.Score'][0:5]
+#plt.figure()
+#scatter_matrix(loansData, alpha=0.05, figsize=(10,10))
+#plt.show()
 
-#g = lambda x: 
+'''#from notebook
+%matplotlib inline
+loansData = pd.read_csv('https://spark-public.s3.amazonaws.com/dataanalysis/loansData.csv')
+plt.figure()
+p = scatter_matrix(loansData, alpha=0.05, figsize=(10,10))
+plt.show()'''
