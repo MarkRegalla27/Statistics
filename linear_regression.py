@@ -10,7 +10,7 @@ percent = loansData['Interest.Rate'].map(lambda percent: round(float(percent.rst
 #print loansData['Loan.Length'][0:5]
 
 term = loansData['Loan.Length'].map(lambda term: term.rstrip(' months'))
-print term[0:5]
+#print term[0:5]
 
 cleanFICORange = loansData['FICO.Range'].map(lambda cleanFICORange: cleanFICORange.split('-'))
 cleanFICORange = cleanFICORange.map(lambda cleanFICORange: [int(n) for n in cleanFICORange])
@@ -18,9 +18,13 @@ cleanFICORange = cleanFICORange.map(lambda cleanFICORange: [int(n) for n in clea
 #pd.series(bin.split('-')[0:2])
 
 #next line alone should assign first value of FICO.Range to FICO.Min as integer
-loansData['FICO.Min'] = loansData.apply(lambda x: ['FICO.Range'].split('-')[0:1].astype('int'), axis=1)
-#print cleanFICORange[0:5]
+loansData['FICO.Min'] = loansData.apply(lambda x: x['FICO.Range'].split('-')[0:1], axis=1)
+loansData['FICO.Min'] = loansData['FICO.Min'].map(lambda y: [int(n) for n in y])
+print "cleanFICORange"
+print cleanFICORange[0:5]
+print "FICO.Min"
 print loansData['FICO.Min'][0:5]
+print type(loansData['FICO.Min'][0:5].values[0][0])
 #loansData.hist(column='FICO.Min')
 #plt.show()
 #i = 0
