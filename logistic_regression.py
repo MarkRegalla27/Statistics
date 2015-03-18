@@ -18,7 +18,7 @@ loansData['Loan.Length'] = loansData['Loan.Length'].map(lambda term: int(term.rs
 loansData['FICO.Min'] = loansData.apply(lambda x: pd.Series(x['FICO.Range'].split('-')[0:1]).astype('int'), axis=1)
 
 #Add column indicating whether interest rate is greater than 12%
-loansData['Less.Than.12'] = loansData['Interest.Rate'].map(lambda x: x['Less.Than.12'] = True if x['Interest.Rate'] < 12)
+#loansData['Less.Than.12'] = loansData['Interest.Rate'].map(lambda x: x['Less.Than.12'] = True if x['Interest.Rate'] < 12)
 #i = 0
 #for i in loansData:
 #	if loansData['Interest.Rate'][i] < 12:
@@ -26,6 +26,8 @@ loansData['Less.Than.12'] = loansData['Interest.Rate'].map(lambda x: x['Less.Tha
 #	else:
 #		loansData['Greater.Than.12'][i] = False
 
-df[df['Interest.Rate'] == 10].head() # should all be True
-df[df['Interest.Rate'] == 13].head() # should all be False
+#df[df['Interest.Rate'] == 10].head() # should all be True
+#df[df['Interest.Rate'] == 13].head() # should all be False
 #loansData['Greater.Than.12']= loansData['Interest.Rate'].map(lambda x: if loansData['Interest.rate'] < 12: loansData['Greater.Than.12'] = True 
+
+loansData['Intercept'] = loansData.apply(lambda x: pd.Series(x['Intercept'] = 1, axis = 1))
