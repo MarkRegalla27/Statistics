@@ -31,6 +31,9 @@ intrate = loansData['Interest.Rate']
 loanamt = loansData['Amount.Requested']
 fico = loansData['FICO.Min']
 
+loansData['10K.Request']=10000
+loansData['30K.Request']=30000
+
 # The dependent variable
 y = np.matrix(intrate).transpose()
 # The independent variables shaped as columns
@@ -44,6 +47,19 @@ x = np.column_stack([x1,x2])
 X = sm.add_constant(x)
 model = sm.OLS(y,X)
 f = model.fit()
+
+req10K = loansData['10K.Request']
+x1_10K = np.matrix(fico).transpose()
+x2_10K = np.matrix(req10K).transpose()
+x_10K = np.column_stack([x1, x2_10K])
+x_10K = sm.add_constant(x_10K)
+
+plt.plot(fico, intrate, 'r.')	#plot a scatterplot where fico is the x-value, intrate is the y value, and 'r.' tells the points to be red dots
+#plt.plot(fico, f.fittedmodel, 'b.', label='Fitted Values')
+plt.xlabel('FICO Min')
+plt.ylabel('Interest Rate')
+plt.legend(loc="best")
+plt.show()
 
 print 'Coefficients: ', f.params[0:2]
 print 'Intercept: ', f.params[2]

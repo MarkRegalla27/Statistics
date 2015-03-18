@@ -30,4 +30,5 @@ loansData['FICO.Min'] = loansData.apply(lambda x: pd.Series(x['FICO.Range'].spli
 #df[df['Interest.Rate'] == 13].head() # should all be False
 #loansData['Greater.Than.12']= loansData['Interest.Rate'].map(lambda x: if loansData['Interest.rate'] < 12: loansData['Greater.Than.12'] = True 
 
-loansData['Intercept'] = loansData.apply(lambda x: pd.Series(x['Intercept'] = 1, axis = 1))
+loansData['Intercept'] = 1.0
+print loansData['Intercept'][0:5]
