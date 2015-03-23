@@ -20,21 +20,18 @@ loansData['FICO.Min'] = loansData.apply(lambda x: pd.Series(x['FICO.Range'].spli
 #loansData['FICO.Min'] = loansData['FICO.Min'].map(lambda y: [int(n) for n in y])
 
 #Plot a histogram of FICO.Min
-#loansData.hist(column='FICO.Min')
-#plt.show()
+loansData.hist(column='FICO.Min')
+plt.show()
 
 #Produce the scatter matrix
-#scatter_matrix(loansData, alpha=0.05, figsize=(10,10))  #prints only numerical values in dataframe, not objects/strings
-#plt.show()
+scatter_matrix(loansData, alpha=0.05, figsize=(10,10))  #prints only numerical values in dataframe, not objects/strings
+plt.show()
 
 intrate = loansData['Interest.Rate']
 loanamt = loansData['Amount.Requested']
 fico = loansData['FICO.Min']
 req10K = 10000
 req30K = 30000
-
-#loansData['10K.Request']=10000
-#loansData['30K.Request']=30000
 
 # The dependent variable
 y = np.matrix(intrate).transpose()
@@ -44,47 +41,28 @@ x2 = np.matrix(loanamt).transpose()
 
 #Stack x1 and x2 into one matrix
 x = np.column_stack([x1,x2])
-#x10 = np.column_stack([x1,req10K])
-#x30 = np.column_stack([x1,req30K])
 
 #Create the linear model
 X = sm.add_constant(x)
 model = sm.OLS(y,X)
 f = model.fit()
 
-'''#Create linear models for 10000 requested
-X10 = sm.add_constant(x10)
-model10 = sm.OLS(y,x10)
-f10 = model.fit()
-
-#Create linear model for 30000 requested
-X30 = sm.add_constant(x30)
-model30 = sm.OLS(y,x30)
-f30 = model.fit()
-
-req10K = loansData['10K.Request']
-x1_10K = np.matrix(fico).transpose()
-x2_10K = np.matrix(req10K).transpose()
-x_10K = np.column_stack([x1, x2_10K])
-x_10K = sm.add_constant(x_10K)
-'''
 a1, a2 = f.params[1:3]
-print a1
-print a2
+b = f.params[0]
 
-m, b = np.polyfit(fico, intrate, 1)	#linear fit on intrate vs fico
-#m, b = np.polyfit(req10K, intrate, 1)	#linear fit on intrate vs 10K requested
-plt.plot(fico, intrate, 'r.')	#plot a scatterplot where fico is the x-value, intrate is the y value, and 'r.' tells the points to be red dots
-plt.plot(fico, m*fico+b, '-')			#plot linear fit of intrate vs fico
-#plt.plot(req10K, m*req10K+b, '-')			#plot linear fit of intrate vs 10K requested
+plt.plot(fico, intrate, 'r.')	#plots a scatterplot where fico is the x-value, intrate is the y value, and 'r.' tells the points to be red dots
+plt.plot(fico, b + a1*fico + a2*10000, '-', label='$10000 Requested')	#plot linear fit of intrate vs fico where amount.requested = 10000
+plt.plot(fico, b + a1*fico + a2*30000, '-', label='$30000 Requested')	#plot linear fit of intrate vs fico where amount.requested = 30000
 plt.xlabel('FICO Min')
 plt.ylabel('Interest Rate')
 plt.legend(loc="best")
-#plt.show()
-
+plt.show()
 
 
 print 'Coefficients: ', f.params[1:3]
 print 'Intercept: ', f.params[0]
 print 'P-Values: ', f.pvalues
 print 'R-Squared: ', f.rsquared
+
+print 'The P-value is less than 0.05, suggesting that the linear relationship of'
+print 'Interest Rate and FICO score is not due to chance'
