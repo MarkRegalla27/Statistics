@@ -21,11 +21,11 @@ loansData['FICO.Min'] = loansData.apply(lambda x: pd.Series(x['FICO.Range'].spli
 
 #Plot a histogram of FICO.Min
 loansData.hist(column='FICO.Min')
-plt.show()
+#plt.show()
 
 #Produce the scatter matrix
 scatter_matrix(loansData, alpha=0.05, figsize=(10,10))  #prints only numerical values in dataframe, not objects/strings
-plt.show()
+#plt.show()
 
 intrate = loansData['Interest.Rate']
 loanamt = loansData['Amount.Requested']
@@ -57,7 +57,7 @@ plt.xlabel('FICO Min')
 plt.ylabel('Interest Rate')
 plt.legend(loc="best")
 plt.show()
-
+print f.summary()
 
 print 'Coefficients: ', f.params[1:3]
 print 'Intercept: ', f.params[0]

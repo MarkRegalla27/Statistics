@@ -9,11 +9,11 @@ loansData = pd.read_csv('https://spark-public.s3.amazonaws.com/dataanalysis/loan
 
 #Remove the "%" symbol from the interest rate data
 loansData['Interest.Rate'] = loansData['Interest.Rate'].map(lambda percent: round(float(percent.rstrip('%')),4))
-i = 1
+'''i = 1
 print loansData['Interest.Rate'][:i]
 if loansData['Interest.Rate'][:i] > 12:
 	print 'yes'
-
+'''
 #Remove the word "months" from the Loan Length data
 loansData['Loan.Length'] = loansData['Loan.Length'].map(lambda term: int(term.rstrip(' months')))
 
@@ -21,6 +21,10 @@ loansData['Loan.Length'] = loansData['Loan.Length'].map(lambda term: int(term.rs
 loansData['FICO.Min'] = loansData.apply(lambda x: pd.Series(x['FICO.Range'].split('-')[0:1]).astype('int'), axis=1)
 
 #Add column indicating whether interest rate is greater than 12%
+loansData['Low.Interest.Flag'] = 0
+loansData.ix[(loansData['Interest.Rate'] <= 12),'Low.Interest.Flag'] = 1
+print loansData['Low.Interest.Flag'].value_counts()
+
 #loansData['Less.Than.12'] = [loansData['Less.Than.12'].bool() for line in loansData['Interest.Rate'] if loansData['Interest.Rate'] < 12]
 '''i = 0
 for i in loansData:
@@ -35,6 +39,8 @@ for i in loansData:
 
 loansData['Intercept'] = 1.0
 #print loansData['Intercept'][0:5]
+
+#ind_vars just a list
 
 #Website on functional programming:
 #https://docs.python.org/2/howto/functional.html
