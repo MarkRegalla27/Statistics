@@ -50,6 +50,7 @@ f = model.fit()
 a1, a2 = f.params[1:3]
 b = f.params[0]
 
+plt.figure()
 plt.plot(fico, intrate, 'r.')	#plots a scatterplot where fico is the x-value, intrate is the y value, and 'r.' tells the points to be red dots
 plt.plot(fico, b + a1*fico + a2*10000, '-', label='$10000 Requested')	#plot linear fit of intrate vs fico where amount.requested = 10000
 plt.plot(fico, b + a1*fico + a2*30000, '-', label='$30000 Requested')	#plot linear fit of intrate vs fico where amount.requested = 30000
