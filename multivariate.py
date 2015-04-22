@@ -38,6 +38,9 @@ plt.axis([0,500000,0,.35])		#plt.axis([min(x), max(x), min(y), max(y)])
 
 #print model.summary()
 
+print 'Model Interest Rate on Home ownership'
+print ''
+
 dfdummies = pd.get_dummies(loansData['home_ownership'])
 loansData = pd.merge(loansData, dfdummies, left_index=True, right_index=True)
 #print dfdummies
@@ -66,31 +69,44 @@ conf['OR'] = params
 conf.columns = ['2.5%', '97.5%', 'OR']
 print np.exp(conf)
 
-sample_size = int(len(loansData) * .1)		#Use 10% of the data as a training set.
-											#It makes the calculations easier to run and does not allow overfitting
+#Introduce annual income on home ownership
+print 'Introduce Annual Income'
+print ''
+
+sample_size = int(len(loansData) * .1)		#Use 10% of the data as a training set.  It makes the calculations faster to run and helps to prevent overfitting
 index_list = np.random.choice(loansData.index.tolist(), sample_size)	#takes random sample of data
 
 dfLoanDataSampled = loansData.loc[index_list]
 dfLoanDataSampled = dfLoanDataSampled[['annual_inc', 'int_rate', 'home_ownership']]
 
-trainData, testData = train_test_split(dfLoanDataSampled, test_size=0.2)
-print trainData
+trainData, testData = train_test_split(dfLoanDataSampled, test_size=0.2)	#returns two dataframes, the train and test sets
+print 'train data'
+#print len(trainData)
+print type(trainData)
 
-trainData['income_ANY'] = trainData.apply(lambda x: x['annual_inc'] * x['ANY'], axis = 1)
-trainData['income_MORTGAGE'] = trainData.apply(lambda x: x['annual_inc'] * x['MORTGAGE'], axis = 1)
-trainData['income_OWN'] = trainData.apply(lambda x: x['annual_inc'] * x['OWN'], axis = 1)
-trainData['income_RENT'] = trainData.apply(lambda x: x['annual_inc'] * x['RENT'], axis = 1)
+column_names = dfLoanDataSampled.columns.tolist()
+
+dftrainData = pd.DataFrame(trainData, columns=column_names)  #Assigns the training data set to dftrainData
+dfDummies = pd.get_dummies(dftrainData['home_ownership'])
+dftrainData = pd.merge(dftrainData, dfDummies, left_index=True, right_index=True)
+
+#trainData['income_ANY'] = trainData.apply(lambda x: x['annual_inc'] * x['ANY'], axis = 1)
+dftrainData['income_MORTGAGE'] = dftrainData.apply(lambda x: x['annual_inc'] * x['MORTGAGE'], axis = 1)
+dftrainData['income_OWN'] = dftrainData.apply(lambda x: x['annual_inc'] * x['OWN'], axis = 1)
+dftrainData['income_RENT'] = dftrainData.apply(lambda x: x['annual_inc'] * x['RENT'], axis = 1)
 
 '''
 loansData['income_ANY'] = loansData.apply(lambda x: x['annual_inc'] * x['ANY'], axis = 1)
 loansData['income_MORTGAGE'] = loansData.apply(lambda x: x['annual_inc'] * x['MORTGAGE'], axis = 1)
 loansData['income_OWN'] = loansData.apply(lambda x: x['annual_inc'] * x['OWN'], axis = 1)
 loansData['income_RENT'] = loansData.apply(lambda x: x['annual_inc'] * x['RENT'], axis = 1)
+'''
 
+X2 = dftrainData[['income_MORTGAGE', 'income_RENT', 'income_OWN']]
+y = dftrainData['int_rate']
 
-X2 = loansData[['income_MORTGAGE', 'income_RENT', 'income_OWN']]
-
-result2 = sm.Logit(y, X2).fit()
+Logit2 = sm.Logit(y, X2)
+result2 = Logit2.fit()
 #print result2.summary()
 
 print "confidence interval"
@@ -105,4 +121,4 @@ conf2 = result2.conf_int()
 conf2['OR'] = params
 conf2.columns = ['2.5%', '97.5%', 'OR']
 print np.exp(conf2)
-'''
+

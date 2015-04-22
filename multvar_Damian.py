@@ -9,7 +9,8 @@ pd.set_option('display.max_columns', 75)
 # we only grab 235,629 rows because the last two rows are a single description 
 #  in column 0.
 # try it without each and see what happens.
-dfLoanData = pd.read_csv('LoanStats3c.csv', skiprows=1, nrows=235629)
+#dfLoanData = pd.read_csv('LoanStats3c.csv', skiprows=1, nrows=235629)  #Damian's file path
+dfLoanData = pd.read_csv('/users/markregalla/projects/LoanStats3c.csv', skiprows=1, nrows=235629)   #my file path
 
 # It should still yell at us that the column 19 (aka 'desc') is also mixed type.
 # so we drop that column - we're not using it anyway.
