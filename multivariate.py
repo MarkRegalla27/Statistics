@@ -81,9 +81,6 @@ dfLoanDataSampled = dfLoanDataSampled[['annual_inc', 'int_rate', 'home_ownership
 
 trainData, testData = train_test_split(dfLoanDataSampled, test_size=0.2)	#returns two dataframes, the train and test sets
 print 'train data'
-#print len(trainData)
-print type(trainData)
-
 column_names = dfLoanDataSampled.columns.tolist()
 
 dftrainData = pd.DataFrame(trainData, columns=column_names)  #Assigns the training data set to dftrainData
@@ -122,3 +119,5 @@ conf2['OR'] = params
 conf2.columns = ['2.5%', '97.5%', 'OR']
 print np.exp(conf2)
 
+print 'There is little change in the odds ratios of predicting interest rates when'
+print 'home ownership is taken into consideration.'
