@@ -33,11 +33,22 @@ model = sm.OLS(Y,X)
 f = model.fit()
 '''
 
-plt.figure()
+#plt.figure()
 #plt.plot(loan_count_summary, year_month_summary, 'r.')
-plt.plot(loan_count_summary, 'r.')
-plt.show()
+#plt.plot(loan_count_summary, 'r.')
+#plt.show()
+
+acf_plot = plt.figure()
+acf_plot = sm.graphics.tsa.plot_acf(loan_count_summary)
+acf_plot.savefig('acf.png')
+
+pacf_plot = plt.figure()
+pacf_plot = sm.graphics.tsa.plot_pacf(loan_count_summary)
+pacf_plot.savefig('pacf.png')
+
+print 'Open acf.png and pacf.png in the working directory to view the plots.'
 
 #print f.summary()
+
 
 
